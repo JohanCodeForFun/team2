@@ -1,0 +1,23 @@
+{
+  "name": "team2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api/app.js",
+  "scripts": {
+    "start": "nodemon api/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hassanila97/team2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hassanila97/team2/issues"
+  },
+  "homepage": "https://github.com/hassanila97/team2#readme",
+  "dependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
