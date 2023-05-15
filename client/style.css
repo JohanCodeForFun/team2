@@ -14,7 +14,7 @@ body {
     margin: 0;
     padding: 0;
     text-align: center;
-    background-color: var(--medium-grey);
+    background-color: var(--light-grey);
 }
 
 .grid-container {
@@ -40,6 +40,7 @@ footer {
     color: var(--white);
     display: flex;
     justify-content: space-around;
+    height: min-content;
 }
 
 main {
@@ -48,5 +49,39 @@ main {
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
-    padding: 0;
+    padding: 20px;
+}
+
+#cards {
+    align-content: center;
+    margin: 0 auto;
+}
+
+.card {
+    width: 300px;
+    height: 400px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+    align-content: center;
+    margin: 0 auto;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container {
+    padding: 2px 16px;
+}
+
+img {
+    width: 150px;
+    height: 100px;
+    background-color: var(--medium-grey);
+    border-radius: 5px 5px 0 0;
+}
+
+dt {
+    font-weight: bold;
 }
