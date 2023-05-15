@@ -23,7 +23,7 @@ async function getAll() {
 
 async function update(_id, dataToUpdate) {
 
-  // data is an object containing at least one of the following properties to update
+  // dataToUpdate is an object containing at least one of the following properties to update
 
   /*
   address (string)
@@ -35,7 +35,7 @@ async function update(_id, dataToUpdate) {
   postalCode (int)
   sold (boolean)
   description (string)
-  images (array)
+  images (array of strings)
   floor (int)
    */
 
