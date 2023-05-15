@@ -20,7 +20,8 @@ router.get('/all', async (req, res) => {
 router.delete('/remove', async (req, res) => {
     let _id = await req.body._id
     try {
-        console.log(await db.deleteOne(_id))
+        console.log(_id)
+        await db.deleteOne(_id)
         res.sendStatus(200)
     } catch (error) {
         console.error(error)
@@ -28,10 +29,8 @@ router.delete('/remove', async (req, res) => {
     }
 })
 
-
 router.put('/update', async (req, res) => {
-
-  /*
+    /*
 
   REQUEST DATA EXAMPLE:
   {
@@ -43,19 +42,15 @@ router.put('/update', async (req, res) => {
 
    */
 
-  try {
+    try {
+        const { _id, ...dataToUpdate } = req.body
 
-    const {_id, ...dataToUpdate} = req.body;
+        let updateResponse = await db.update(_id, dataToUpdate)
+        return res.json(updateResponse)
+    } catch (err) {
+        console.error(err)
+        return res.sendStatus(500)
+    }
+})
 
-    let updateResponse = await db.update(_id, dataToUpdate);
-    return res.json(updateResponse);
-
-  } catch (err) {
-
-    console.error(err);
-    return res.sendStatus(500);
-
-  }
-});
-
-module.exports = router;
+module.exports = router

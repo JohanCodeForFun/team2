@@ -21,9 +21,7 @@ async function getAll() {
 }
 
 async function deleteOne(_id) {
-    await collection.connect()
-    let result = await collection.deleteOne({ _id: _id })
-    client.close()
+    let result = await collection.deleteOne({ _id: new ObjectId(_id) })
     return result
 }
 
