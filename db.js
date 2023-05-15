@@ -6,15 +6,17 @@ const client = new MongoClient(connectionStr);
 const db = client.db('Team2');
 const collection = db.collection('HusTest');
 
+client.connect();
+
 async function getAll() {
-  await client.connect();
+  //await client.connect();
   //const projection = {} // ingen filtrering just nu
   //const limit = 3;
   let data = await collection.find()
     //.project(projection)
     //.limit(limit)
     .toArray();
-  client.close();
+  //client.close();
 
   return data;
 }
