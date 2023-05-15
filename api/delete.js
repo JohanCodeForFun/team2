@@ -30,7 +30,6 @@ router.delete('/remove', async (req, res) => {
         res.sendStatus(500)
     }
 })
-
 module.exports = router
 
 // database
@@ -40,7 +39,6 @@ async function deleteOne(_id) {
     client.close()
     return result
 }
-
 module.exports = {
     deleteOne
 }
