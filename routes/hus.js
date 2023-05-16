@@ -1,21 +1,21 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 //const fs = require('fs');
 
-const db = require('../db');
+const db = require('../db')
 
-router.get('/all', async(req, res) => {
-  try {
-    /*
+router.get('/all', async (req, res) => {
+    try {
+        /*
     if(fileExist)
     */
-    let data = await db.getAll();
-    return res.json(data);
-  } catch (e) {
-    console.error(e);
-    return res.statusCode(500);
-  }
-});
+        let data = await db.getAll()
+        return res.json(data)
+    } catch (e) {
+        console.error(e)
+        return res.statusCode(500)
+    }
+})
 
 router.post('/add', async(req, res) => {
   try {
@@ -27,10 +27,20 @@ router.post('/add', async(req, res) => {
 })
 
 
+router.delete('/remove', async (req, res) => {
+    let _id = await req.body._id
+    try {
+        console.log(_id)
+        await db.deleteOne(_id)
+        res.sendStatus(200)
+    } catch (error) {
+        console.error(error)
+        res.sendStatus(500)
+    }
+})
 
 router.put('/update', async (req, res) => {
-
-  /*
+    /*
 
   REQUEST DATA EXAMPLE:
   {
@@ -42,19 +52,15 @@ router.put('/update', async (req, res) => {
 
    */
 
-  try {
+    try {
+        const { _id, ...dataToUpdate } = req.body
 
-    const {_id, ...dataToUpdate} = req.body;
+        let updateResponse = await db.update(_id, dataToUpdate)
+        return res.json(updateResponse)
+    } catch (err) {
+        console.error(err)
+        return res.sendStatus(500)
+    }
+})
 
-    let updateResponse = await db.update(_id, dataToUpdate);
-    return res.json(updateResponse);
-
-  } catch (err) {
-
-    console.error(err);
-    return res.sendStatus(500);
-
-  }
-});
-
-module.exports = router;
+module.exports = router
