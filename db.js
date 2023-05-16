@@ -83,30 +83,6 @@ async function addHouse() {
     return result
 }
 
-// lagt till funktion att skapa ett statiskt hus när
-// post request görs till http://localhost:3000/hus/add
-
-// Behöver uppdateras med dynamisk data som kommer med post body.
-
-async function addHouse() {
-    const house = new House({
-        address: 'Strandvägen 12',
-        city: 'Stockholm',
-        postalCode: 12345,
-        rooms: 20,
-        floor: 0,
-        price: 40000000,
-        yearBuilt: 2022,
-        size: 260,
-        sold: false,
-        description: 'Ditt drömboende på strandvägen!',
-        images: ['http//bild1.jpg', 'http//bild2.jpg', 'http//bild3.jpg']
-    })
-    const result = await collection.insertOne(house)
-
-    return result
-}
-
 module.exports = {
     getAll,
     addHouse,
