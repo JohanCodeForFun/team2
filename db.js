@@ -5,6 +5,7 @@ const connectionStr = config.CONNECTION_STRING
 const client = new MongoClient(connectionStr)
 const db = client.db('Team2')
 const collection = db.collection('HusTest')
+const House = require('./models/house')
 
 client.connect()
 
@@ -58,41 +59,57 @@ async function update(_id, dataToUpdate) {
     return updateResponse
 }
 
-async function update(_id, dataToUpdate) {
-    // data is an object containing at least one of the following properties to update
+// lagt till funktion att skapa ett statiskt hus när
+// post request görs till http://localhost:3000/hus/add
 
-    /*
-  address (string)
-  rooms (int)
-  price (int)
-  year (int)
-  size (int)
-  city (string)
-  postalCode (int)
-  sold (boolean)
-  description (string)
-  images (array)
-  floor (int)
-   */
+// Behöver uppdateras med dynamisk data som kommer med post body.
 
-    if (!(_id && dataToUpdate)) {
-        throw 'db.js update() - _id and dataToUpdate are required'
-    }
+async function addHouse() {
+    const house = new House({
+        address: 'Strandvägen 12',
+        city: 'Stockholm',
+        postalCode: 12345,
+        rooms: 20,
+        floor: 0,
+        price: 40000000,
+        yearBuilt: 2022,
+        size: 260,
+        sold: false,
+        description: 'Ditt drömboende på strandvägen!',
+        images: ['http//bild1.jpg', 'http//bild2.jpg', 'http//bild3.jpg']
+    })
+    const result = await collection.insertOne(house)
 
-    let updateResponse = await collection.updateOne(
-        {
-            _id: new ObjectId(_id)
-        },
-        {
-            $set: dataToUpdate
-        }
-    )
+    return result
+}
 
-    return updateResponse
+// lagt till funktion att skapa ett statiskt hus när
+// post request görs till http://localhost:3000/hus/add
+
+// Behöver uppdateras med dynamisk data som kommer med post body.
+
+async function addHouse() {
+    const house = new House({
+        address: 'Strandvägen 12',
+        city: 'Stockholm',
+        postalCode: 12345,
+        rooms: 20,
+        floor: 0,
+        price: 40000000,
+        yearBuilt: 2022,
+        size: 260,
+        sold: false,
+        description: 'Ditt drömboende på strandvägen!',
+        images: ['http//bild1.jpg', 'http//bild2.jpg', 'http//bild3.jpg']
+    })
+    const result = await collection.insertOne(house)
+
+    return result
 }
 
 module.exports = {
     getAll,
-    deleteOne,
-    update
+    addHouse,
+    update,
+    deleteOne
 }

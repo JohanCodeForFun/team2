@@ -17,6 +17,16 @@ router.get('/all', async (req, res) => {
     }
 })
 
+router.post('/add', async(req, res) => {
+  try {
+    let data = await db.addHouse();
+    return res.json(data);
+  } catch (err) {
+    console.error(err)
+  }
+})
+
+
 router.delete('/remove', async (req, res) => {
     let _id = await req.body._id
     try {
