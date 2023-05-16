@@ -17,6 +17,16 @@ router.get('/all', async(req, res) => {
   }
 });
 
+router.post('/add', async(req, res) => {
+  try {
+    let data = await db.addHouse();
+    return res.json(data);
+  } catch (err) {
+    console.error(err)
+  }
+})
+
+
 
 router.put('/update', async (req, res) => {
 
