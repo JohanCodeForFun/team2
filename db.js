@@ -63,7 +63,7 @@ async function update(_id, dataToUpdate) {
 
 async function addHouse() {
   const house = new House({
-    adress: "Strandvägen 12",
+    address: "Strandvägen 12",
     city: "Stockholm",
     postalCode: 12345,
     rooms: 20,
