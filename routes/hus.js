@@ -6,11 +6,8 @@ const db = require('../db')
 
 router.get('/all', async (req, res) => {
     try {
-        /*
-    if(fileExist)
-    */
         let data = await db.getAll()
-        return res.json(data)
+        return res.json(data).statusCode(200)
     } catch (e) {
         console.error(e)
         return res.statusCode(500)
@@ -20,9 +17,10 @@ router.get('/all', async (req, res) => {
 router.post('/add', async(req, res) => {
   try {
     let data = await db.addHouse();
-    return res.json(data);
+    return res.json(data).statusCode(200);
   } catch (err) {
     console.error(err)
+    return res.statusCode(500);
   }
 })
 
@@ -56,10 +54,10 @@ router.put('/update', async (req, res) => {
         const { _id, ...dataToUpdate } = req.body
 
         let updateResponse = await db.update(_id, dataToUpdate)
-        return res.json(updateResponse)
+        return res.json(updateResponse).sendStatus(200);
     } catch (err) {
         console.error(err)
-        return res.sendStatus(500)
+        return res.sendStatus(500);
     }
 })
 
