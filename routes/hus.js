@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const validateHousePriceIsNumber = require("../helpers/validateDownPayment");
 
 const db = require("../db");
 
@@ -13,37 +14,19 @@ router.get("/all", async (req, res) => {
   }
 });
 
-// att göra
-// flytta till repo
-// använd genom controller
-// uppdatera route
-
-function housePriceIsNumber(isNumber) {
-  if (Number.isInteger(isNumber) === true) {
-    // console.log(
-    //   `För ett hus som kostar ${huspris.toLocaleString()}kr, blir handpening ${(
-    //     huspris * 0.2
-    //   ).toLocaleString()}kr (20%).`
-    // );
-    return true
-
-  } else {
-    throw "Var vänlig försök igen och ange hus priset som ett nummer.";
-  }
-}
-
-router.post("/handpening", async (req, res) => {
-  console.log('hej')
+router.post("/down-payment", async (req, res) => {
   const huspris = req.body.huspris;
 
-    try {
-      housePriceIsNumber(huspris);
-      console.log("nummer")
-      res.send(req.data);
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('error')
-    }
+  try {
+    validateHousePriceIsNumber(huspris);
+    res.send(
+      `För ett hus som kostar ${huspris.toLocaleString()}kr, blir handpeningen som minst ${(
+        huspris * 0.2
+      ).toLocaleString()}kr (20%).`
+    );
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 router.post("/add", async (req, res) => {
