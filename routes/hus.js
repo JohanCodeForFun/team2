@@ -1,43 +1,75 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-const db = require('../db')
+const db = require("../db");
 
-router.get('/all', async (req, res) => {
+router.get("/all", async (req, res) => {
+  try {
+    let data = await db.getAll();
+    return res.json(data);
+  } catch (e) {
+    console.error(e);
+    return res.statusCode(500);
+  }
+});
+
+// att göra
+// flytta till repo
+// använd genom controller
+// uppdatera route
+
+function housePriceIsNumber(isNumber) {
+  if (Number.isInteger(isNumber) === true) {
+    // console.log(
+    //   `För ett hus som kostar ${huspris.toLocaleString()}kr, blir handpening ${(
+    //     huspris * 0.2
+    //   ).toLocaleString()}kr (20%).`
+    // );
+    return true
+
+  } else {
+    throw "Var vänlig försök igen och ange hus priset som ett nummer.";
+  }
+}
+
+router.post("/handpening", async (req, res) => {
+  console.log('hej')
+  const huspris = req.body.huspris;
+
     try {
-        let data = await db.getAll()
-        return res.json(data)
-    } catch (e) {
-        console.error(e)
-        return res.statusCode(500)
+      housePriceIsNumber(huspris);
+      console.log("nummer")
+      res.send(req.data);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('error')
     }
-})
+});
 
-router.post('/add', async(req, res) => {
+router.post("/add", async (req, res) => {
   try {
     let data = await db.addHouse();
     return res.json(data);
   } catch (err) {
-    console.error(err)
+    console.error(err);
     return res.sendStatus(500);
   }
-})
+});
 
+router.delete("/remove", async (req, res) => {
+  let _id = await req.body._id;
+  try {
+    console.log(_id);
+    await db.deleteOne(_id);
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
 
-router.delete('/remove', async (req, res) => {
-    let _id = await req.body._id
-    try {
-        console.log(_id)
-        await db.deleteOne(_id)
-        res.sendStatus(200)
-    } catch (error) {
-        console.error(error)
-        res.sendStatus(500)
-    }
-})
-
-router.put('/update', async (req, res) => {
-    /*
+router.put("/update", async (req, res) => {
+  /*
 
   REQUEST DATA EXAMPLE:
   {
@@ -49,15 +81,15 @@ router.put('/update', async (req, res) => {
 
    */
 
-    try {
-        const { _id, ...dataToUpdate } = req.body
+  try {
+    const { _id, ...dataToUpdate } = req.body;
 
-        let updateResponse = await db.update(_id, dataToUpdate)
-        return res.json(updateResponse);
-    } catch (err) {
-        console.error(err)
-        return res.sendStatus(500);
-    }
-})
+    let updateResponse = await db.update(_id, dataToUpdate);
+    return res.json(updateResponse);
+  } catch (err) {
+    console.error(err);
+    return res.sendStatus(500);
+  }
+});
 
-module.exports = router
+module.exports = router;
