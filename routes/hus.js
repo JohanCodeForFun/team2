@@ -17,6 +17,16 @@ router.get('/all', async (req, res) => {
     }
 })
 
+router.get('/allHousesCount', async (req, res) => {
+  try {
+    let data = await db.getAllHousesCount()
+    return res.json(data).statusCode(200)
+  } catch (err) {
+    console.error(err)
+    return res.statusCode(500)
+  }
+})
+
 router.post('/add', async(req, res) => {
   try {
     let data = await db.addHouse();

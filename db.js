@@ -19,6 +19,12 @@ async function getAll() {
         //.limit(limit)
         .toArray()
     //client.close();
+    return data
+}
+
+async function getAllHousesCount() {
+    let result = await collection.countDocuments({})
+    return result;
 }
 
 async function deleteOne(_id) {
@@ -85,6 +91,7 @@ async function addHouse() {
 
 module.exports = {
     getAll,
+    getAllHousesCount,
     addHouse,
     update,
     deleteOne
