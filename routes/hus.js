@@ -16,14 +16,8 @@ router.get("/all", async (req, res) => {
 
 router.post("/down-payment", async (req, res) => {
   const huspris = req.body.huspris;
-
   try {
-    validateHousePriceIsNumber(huspris);
-    res.send(
-      `För ett hus som kostar ${huspris.toLocaleString()}kr, blir handpeningen som minst ${(
-        huspris * 0.2
-      ).toLocaleString()}kr (20%).`
-    );
+    res.send(validateHousePriceIsNumber(huspris));
   } catch (err) {
     res.status(500).send(err);
   }
