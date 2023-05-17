@@ -7,20 +7,20 @@ const db = require('../db')
 router.get('/all', async (req, res) => {
     try {
         let data = await db.getAll()
-        return res.json(data).statusCode(200)
+        return res.json(data)
     } catch (e) {
         console.error(e)
-        return res.statusCode(500)
+        return res.sendStatus(500)
     }
 })
 
 router.post('/add', async(req, res) => {
   try {
     let data = await db.addHouse();
-    return res.json(data).statusCode(200);
+    return res.json(data);
   } catch (err) {
     console.error(err)
-    return res.statusCode(500);
+    return res.sendStatus(500);
   }
 })
 
