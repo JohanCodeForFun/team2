@@ -17,9 +17,9 @@ router.get("/all", async (req, res) => {
 router.post("/down-payment", async (req, res) => {
   const huspris = req.body.huspris;
   try {
-    res.send(validateHousePriceIsNumber(huspris));
+    return res.send(validateHousePriceIsNumber(huspris));
   } catch (err) {
-    res.status(500).send(err);
+    return res.status(500).send(err);
   }
 });
 
