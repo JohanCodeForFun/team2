@@ -19,6 +19,7 @@ async function getAll() {
         //.limit(limit)
         .toArray()
     //client.close();
+  return data;
 }
 
 async function deleteOne(_id) {
