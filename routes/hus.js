@@ -9,7 +9,7 @@ router.get('/all', async (req, res) => {
         return res.json(data)
     } catch (e) {
         console.error(e)
-        return res.sendStatus(500)
+        return res.statusCode(500)
     }
 })
 
@@ -53,7 +53,7 @@ router.put('/update', async (req, res) => {
         const { _id, ...dataToUpdate } = req.body
 
         let updateResponse = await db.update(_id, dataToUpdate)
-        return res.json(updateResponse).sendStatus(200);
+        return res.json(updateResponse);
     } catch (err) {
         console.error(err)
         return res.sendStatus(500);
