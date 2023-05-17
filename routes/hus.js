@@ -14,6 +14,7 @@ router.get("/all", async (req, res) => {
   }
 });
 
+// Service, calculate downpayment from total house cost.
 router.post("/down-payment", async (req, res) => {
   const huspris = req.body.huspris;
   try {
