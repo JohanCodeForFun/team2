@@ -25,9 +25,7 @@ router.put('/update', async (req, res) => {
   REQUEST DATA EXAMPLE:
   {
     "_id": "6461e5c1a874dd3334720dd7",
-	  "address": "Trekantsvägen 1",
-    "rooms": 3,
-    "price": 1000000
+    "sold": true
   }
 
    */
