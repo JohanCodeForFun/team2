@@ -22,7 +22,6 @@ router.post('/add', async (req, res) => {
         const data = req.body
         const result = await db.addHouse(data)
         res.json(result)
-        res.sendStatus(200)
     } catch (error) {
         console.error(error)
         res.sendStatus(500)
