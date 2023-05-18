@@ -4,6 +4,18 @@ const validateHousePriceIsNumber = require("../helpers/validateDownPayment");
 
 const db = require("../db");
 
+// Service, calculate downpayment from total house cost.
+// Usage example: post { "huspris": 32345666 } to /down-payment
+
+router.post("/down-payment", async (req, res) => {
+  const huspris = req.body.huspris;
+  try {
+    return res.send(validateHousePriceIsNumber(huspris));
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+});
+
 router.get("/all", async (req, res) => {
   try {
     let data = await db.getAll();
@@ -11,16 +23,6 @@ router.get("/all", async (req, res) => {
   } catch (e) {
     console.error(e);
     return res.statusCode(500);
-  }
-});
-
-// Service, calculate downpayment from total house cost.
-router.post("/down-payment", async (req, res) => {
-  const huspris = req.body.huspris;
-  try {
-    return res.send(validateHousePriceIsNumber(huspris));
-  } catch (err) {
-    return res.status(500).send(err);
   }
 });
 
