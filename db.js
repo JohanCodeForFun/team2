@@ -28,36 +28,19 @@ async function deleteOne(_id) {
 }
 
 async function update(_id, dataToUpdate) {
-    // data is an object containing at least one of the following properties to update
+  // dataToUpdate is an object containing at least one property to update
 
-    /*
-  address (string)
-  rooms (int)
-  price (int)
-  year (int)
-  size (int)
-  city (string)
-  postalCode (int)
-  sold (boolean)
-  description (string)
-  images (array)
-  floor (int)
-   */
+  if (!(_id && dataToUpdate)) {
+    throw "db.js update() - _id and dataToUpdate are required"
+  }
 
-    if (!(_id && dataToUpdate)) {
-        throw 'db.js update() - _id and dataToUpdate are required'
-    }
-
-    let updateResponse = await collection.updateOne(
-        {
-            _id: new ObjectId(_id)
-        },
-        {
-            $set: dataToUpdate
-        }
-    )
-
-    return updateResponse
+  return await collection.updateOne(
+    {
+      _id: new ObjectId(_id)
+    },
+    {
+      $set: dataToUpdate
+    })
 }
 
 async function addHouse(data) {
