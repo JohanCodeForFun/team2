@@ -1,2 +1,0 @@
-Hej! 
-Kort demo på pull request.
