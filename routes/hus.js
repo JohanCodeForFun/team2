@@ -1,21 +1,30 @@
-const express = require('express')
-const router = express.Router()
-//const fs = require('fs');
+const express = require("express");
+const router = express.Router();
+const validateHousePriceIsNumber = require("../helpers/validateDownPayment");
 
-const db = require('../db')
+const db = require("../db");
 
-router.get('/all', async (req, res) => {
-    try {
-        /*
-    if(fileExist)
-    */
-        let data = await db.getAll()
-        return res.json(data)
-    } catch (e) {
-        console.error(e)
-        return res.statusCode(500)
-    }
-})
+// Service, calculate downpayment from total house cost.
+// Usage example: post { "huspris": 32345666 } to /down-payment
+
+router.post("/down-payment", async (req, res) => {
+  const huspris = req.body.huspris;
+  try {
+    return res.send(validateHousePriceIsNumber(huspris));
+  } catch (err) {
+    return res.status(500).send(err);
+  }
+});
+
+router.get("/all", async (req, res) => {
+  try {
+    let data = await db.getAll();
+    return res.json(data);
+  } catch (e) {
+    console.error(e);
+    return res.statusCode(500);
+  }
+});
 
 router.post('/add', async (req, res) => {
     try {
@@ -28,20 +37,20 @@ router.post('/add', async (req, res) => {
     }
 })
 
-router.delete('/remove', async (req, res) => {
-    let _id = await req.body._id
-    try {
-        console.log(_id)
-        await db.deleteOne(_id)
-        res.sendStatus(200)
-    } catch (error) {
-        console.error(error)
-        res.sendStatus(500)
-    }
-})
+router.delete("/remove", async (req, res) => {
+  let _id = await req.body._id;
+  try {
+    console.log(_id);
+    await db.deleteOne(_id);
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+});
 
-router.put('/update', async (req, res) => {
-    /*
+router.put("/update", async (req, res) => {
+  /*
 
   REQUEST DATA EXAMPLE:
   {
@@ -53,15 +62,15 @@ router.put('/update', async (req, res) => {
 
    */
 
-    try {
-        const { _id, ...dataToUpdate } = req.body
+  try {
+    const { _id, ...dataToUpdate } = req.body;
 
-        let updateResponse = await db.update(_id, dataToUpdate)
-        return res.json(updateResponse)
-    } catch (err) {
-        console.error(err)
-        return res.sendStatus(500)
-    }
-})
+    let updateResponse = await db.update(_id, dataToUpdate);
+    return res.json(updateResponse);
+  } catch (err) {
+    console.error(err);
+    return res.sendStatus(500);
+  }
+});
 
-module.exports = router
+module.exports = router;
