@@ -19,7 +19,7 @@ async function getAll() {
         //.limit(limit)
         .toArray()
     //client.close();
-  return data;
+    return data
 }
 
 async function deleteOne(_id) {
@@ -60,27 +60,9 @@ async function update(_id, dataToUpdate) {
     return updateResponse
 }
 
-// lagt till funktion att skapa ett statiskt hus när
-// post request görs till http://localhost:3000/hus/add
-
-// Behöver uppdateras med dynamisk data som kommer med post body.
-
-async function addHouse() {
-    const house = new House({
-        address: 'Strandvägen 12',
-        city: 'Stockholm',
-        postalCode: 12345,
-        rooms: 20,
-        floor: 0,
-        price: 40000000,
-        yearBuilt: 2022,
-        size: 260,
-        sold: false,
-        description: 'Ditt drömboende på strandvägen!',
-        images: ['http//bild1.jpg', 'http//bild2.jpg', 'http//bild3.jpg']
-    })
+async function addHouse(data) {
+    const house = new House(data)
     const result = await collection.insertOne(house)
-
     return result
 }
 
